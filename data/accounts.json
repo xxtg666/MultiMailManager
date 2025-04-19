@@ -1,0 +1,13 @@
+{
+  "server": "imap.example.com",
+  "emails": [
+    {
+      "user": "username@example.com",
+      "password": "123456"
+    },
+    {
+      "user": "test@example.com",
+      "password": "password123"
+    }
+  ]
+}

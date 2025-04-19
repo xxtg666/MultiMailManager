@@ -1,0 +1,116 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  background-color: white;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 60px);
+}
+
+.accountListContainer {
+  width: 300px;
+  border-right: 1px solid #e8e8e8;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.emailListContainer {
+  flex: 1;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.headerButtons {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  gap: 10px;
+}
+
+.settingsButton, .notificationButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.settingsButton:hover, .notificationButton:hover {
+  color: var(--primary-color, #1677ff);
+}
+
+.notificationBadge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 10px;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.errorContainer {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 80%;
+  max-width: 600px;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  border-radius: 4px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.errorIcon {
+  color: #ff4d4f;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.errorText {
+  flex: 1;
+  color: #434343;
+}
+
+.errorCloseButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  transition: color 0.3s;
+  margin-left: 12px;
+}
+
+.errorCloseButton:hover {
+  color: #666;
+}

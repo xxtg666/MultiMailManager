@@ -1,0 +1,40 @@
+.progressContainer {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progressInfo {
+  margin-bottom: 8px;
+}
+
+.accountProgress, .emailProgress {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #666;
+}
+
+.message {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.progressBarWrapper {
+  height: 8px;
+  background-color: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: var(--primary-color, #1677ff);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}

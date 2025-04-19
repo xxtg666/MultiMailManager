@@ -1,0 +1,134 @@
+.settings {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  z-index: 100;
+}
+
+.settingsButton {
+  background-color: var(--primary-color, #1677ff);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s;
+}
+
+.settingsButton:hover {
+  transform: rotate(30deg);
+  background-color: #0056b3;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 500px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal h2 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.section h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="password"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.colorPicker {
+  display: flex;
+  align-items: center;
+}
+
+.colorPicker input {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.cancelButton, 
+.saveButton {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cancelButton {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #333;
+  margin-right: 10px;
+}
+
+.saveButton {
+  background-color: var(--primary-color, #1677ff);
+  border: 1px solid var(--primary-color, #1677ff);
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #e5e5e5;
+}
+
+.saveButton:hover {
+  opacity: 0.9;
+}
