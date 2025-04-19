@@ -23,11 +23,11 @@
 
 ## 安装步骤
 
-### 1. 解压文件
+### 1. 下载代码
 
 ```bash
-tar -xzvf email-query-app-final.tar.gz
-cd email-query-app-improved
+git clone https://github.com/xxtg666/MultiMailManager.git
+cd MultiMailManager
 ```
 
 ### 2. 安装后端依赖
