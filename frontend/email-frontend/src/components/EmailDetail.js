@@ -1,8 +1,20 @@
 'use client';
 
 import styles from './EmailDetail.module.css';
+import { useEffect, useState } from 'react';
+import { STORAGE_KEYS, DEFAULT_API_URL } from '../config';
 
 export default function EmailDetail({ email, onClose }) {
+  const [apiUrl, setApiUrl] = useState(DEFAULT_API_URL);
+
+  useEffect(() => {
+    // 从本地存储获取API地址
+    const storedApiUrl = localStorage.getItem(STORAGE_KEYS.API_URL);
+    if (storedApiUrl) {
+      setApiUrl(storedApiUrl);
+    }
+  }, []);
+
   const formatDate = (dateString) => {
     try {
       const date = new Date(dateString);
@@ -53,7 +65,7 @@ export default function EmailDetail({ email, onClose }) {
               {email.attachments.map((attachment, index) => (
                 <a 
                   key={index}
-                  href={`http://localhost:5000${attachment.path}`}
+                  href={`${apiUrl}${attachment.path}`}
                   className={styles.attachment}
                   target="_blank"
                   rel="noopener noreferrer"

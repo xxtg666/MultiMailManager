@@ -417,7 +417,7 @@ def update_account_email_count(account):
     return accounts_data
 
 # 辅助函数：获取单个账号的邮件
-def fetch_account_emails(server, account, password):
+def fetch_account_emails(server, account, password, is_batching = False):
     global fetch_progress
     
     account_dir = os.path.join(EMAILS_DIR, account)
@@ -501,7 +501,8 @@ def fetch_account_emails(server, account, password):
         accounts_data = update_account_email_count(account)
         
         # 设置状态为已完成
-        fetch_progress['status'] = 'completed'
+        if not is_batching:
+            fetch_progress['status'] = 'completed'
         fetch_progress['message'] = f'账号 {account} 邮件获取完成'
         fetch_progress['percentage'] = 100
         
@@ -509,7 +510,8 @@ def fetch_account_emails(server, account, password):
     except Exception as e:
         error_msg = f'获取邮件失败: {str(e)}'
         fetch_progress['message'] = error_msg
-        fetch_progress['status'] = 'error'
+        if not is_batching:
+            fetch_progress['status'] = 'error'
         add_notification(f'账号 {account} 获取邮件失败: {str(e)}', 'error')
         
         # 3秒后自动重置状态
@@ -527,7 +529,8 @@ def fetch_account_emails(server, account, password):
                 'percentage': 0
             }
         
-        threading.Thread(target=reset_status).start()
+        if not is_batching:
+            threading.Thread(target=reset_status).start()
         return False
 
 # 辅助函数：获取所有账号的邮件
@@ -579,6 +582,7 @@ def fetch_all_emails():
         return
     
     # 获取每个账号的邮件
+    has_error = False
     for i, email_data in enumerate(emails):
         account = email_data.get('user', '')
         password = email_data.get('password', '')
@@ -587,8 +591,14 @@ def fetch_all_emails():
         fetch_progress['percentage'] = int((i + 1) / len(emails) * 100)
         
         try:
-            fetch_account_emails(server, account, password)
+            success = fetch_account_emails(server, account, password, True)
+            if not success:
+                has_error = True
+                # add_notification(f'账号 {account} 获取邮件失败', 'error')
+                # 继续处理下一个账号，不中断整个过程
+                continue
         except Exception as e:
+            has_error = True
             error_msg = f'账号 {account} 获取邮件失败: {str(e)}'
             add_notification(error_msg, 'error')
             # 继续处理下一个账号，不中断整个过程
@@ -597,11 +607,15 @@ def fetch_all_emails():
         # 更新账号邮件数量
         email_data['email_count'] = get_account_email_count(account)
     
-    fetch_progress = {
-        'status': 'completed',
-        'message': '所有邮件获取完成',
-        'percentage': 100
-    }
+    # 设置最终状态
+    if has_error:
+        fetch_progress['status'] = 'completed'
+        fetch_progress['message'] = '邮件获取完成，但有部分账号出错'
+    else:
+        fetch_progress['status'] = 'completed'
+        fetch_progress['message'] = '所有邮件获取完成'
+    
+    fetch_progress['percentage'] = 100
     
     # 5秒后自动重置状态
     def reset_status():
@@ -656,12 +670,9 @@ def api_get_email_detail(email_id):
     else:
         return jsonify({'error': 'Email not found'}), 404
 
-# API路由：获取附件
+# API路由：获取附件 - 不需要验证访问秘钥
 @app.route('/api/attachments/<email_id>/<filename>', methods=['GET'])
 def api_get_attachment(email_id, filename):
-    if not verify_access_key():
-        return jsonify({'error': 'Unauthorized'}), 401
-    
     file_path = os.path.join(ATTACHMENTS_DIR, email_id, filename)
     if os.path.exists(file_path):
         return send_file(file_path, as_attachment=True, download_name=filename)

@@ -1,5 +1,5 @@
 > [!NOTE]
-> 本项目完全使用 [manus](https://manus.im/) 编写，我一个字符都没有改。
+> 本项目完全使用 [manus](https://manus.im/) 编写，我几乎一个字符都没有改。
 
 # MultiMailManager
 
